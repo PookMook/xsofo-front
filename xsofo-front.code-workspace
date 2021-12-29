@@ -1,0 +1,27 @@
+{
+  "folders": [
+    {
+      "name": "✨ root",
+      "path": "./"
+    },
+    {
+      "name": "🚀 demo-app",
+      "path": "./apps/demo-app"
+    },
+    {
+      "name": "📦 design-system",
+      "path": "./libs/design-system"
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.exclude": {
+      "node_modules/": true,
+      "libs/": true,
+      "tools/": true
+      //"apps/": true
+    }
+  }
+}
