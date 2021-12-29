@@ -1,6 +1,5 @@
-import React from 'react'; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { createStitches, globalCss } from '@stitches/react';
-import { gray, plum, mauve } from '@radix-ui/colors';
+import { createStitches } from "@stitches/react";
+import { gray, plum, mauve } from "@radix-ui/colors";
 
 /*
 1 App background
@@ -46,88 +45,95 @@ const grayScheme = {
   scheme11: gray.gray11,
   scheme12: gray.gray12,
 };
-export const { styled, getCssText, theme, createTheme } = createStitches({
-  media: {
-    bp1: '(min-width: 640px)',
-    bp2: '(min-width: 768px)',
-    bp3: '(min-width: 1024px)',
-    print: 'print',
-    reducedMotion: '(prefers-reduced-motion)',
-    darkTheme: '(prefers-color-scheme: dark)',
-  },
-  theme: {
-    fonts: {
-      system: 'system-ui',
+const { styled, getCssText, theme, createTheme, keyframes, globalCss } =
+  createStitches({
+    theme: {
+      fonts: {
+        system: "system-ui",
+      },
+      colors: {
+        brand: "#005a7c",
+        productIQ: "#a23f97",
+        // ...plumScheme,
+        //...grayScheme,
+        scheme1: "rgb(255,255,255)",
+        scheme12: "rgb(0,0,0)",
+        ...gray,
+        ...mauve,
+        appBackground: "$scheme1",
+        elementBackground: "$scheme3",
+        subtleBorder: "$scheme6",
+        separator: "$scheme6",
+        elementBorder: "$scheme7",
+        loContrast: "$scheme11",
+        hiContrast: "$scheme12",
+      },
+      fontSizes: {
+        1: "13px",
+        2: "15px",
+        3: "17px",
+      },
     },
-    colors: {
-      brand: '#005a7c',
-      productIQ: '#a23f97',
-      // ...plumScheme,
-      //...grayScheme,
-      scheme1: 'rgb(255,255,255)',
-      scheme12: 'rgb(0,0,0)',
-      ...gray,
-      ...mauve,
-      appBackground: '$scheme1',
-      elementBackground: '$scheme3',
-      subtleBorder: '$scheme6',
-      separator: '$scheme6',
-      elementBorder: '$scheme7',
-      loContrast: '$scheme11',
-      hiContrast: '$scheme12',
+    media: {
+      bp1: "(min-width: 640px)",
+      bp2: "(min-width: 768px)",
+      bp3: "(min-width: 1024px)",
+      print: "print",
+      reducedMotion: "(prefers-reduced-motion)",
+      darkTheme: "(prefers-color-scheme: dark)",
     },
-    fontSizes: {
-      1: '13px',
-      2: '15px',
-      3: '17px',
-    },
-  },
-});
+  });
 
-const createThemeCssText = (baseTheme: typeof darkTheme) => {
+function createThemeCssText(
+  processTheme: typeof darkTheme
+): Record<string, string> {
   const tokens: Record<string, string> = {};
-  if (baseTheme.colors) {
-    Object.values(baseTheme.colors).forEach((token) => {
-      console.log(`${token.variable}: ${tokens[token.value]}`);
+  if (processTheme.colors) {
+    for (const token of Object.values(processTheme.colors)) {
       tokens[token.variable] = token.value;
-      console.log(`${token.variable}: ${token.value}`);
-    });
+    }
   }
-  console.log(tokens);
   return tokens;
-};
+}
 
 const darkTheme = createTheme({
   colors: {
-    scheme1: 'rgb(0,0,0)',
-    scheme12: 'rgb(255,255,255)',
+    scheme1: "rgb(0,0,0)",
+    scheme12: "rgb(255,255,255)",
+  },
+});
+const largeTheme = createTheme({
+  colors: {
+    scheme1: "rgb(255,0,0)",
+    scheme12: "rgb(0,255,255)",
   },
 });
 
 // ...createThemeCssText(darkTheme),
-export const globalStyles = globalCss({
-  ':root': {
-    '@darkTheme': {
+const globalStyles = globalCss({
+  ":root": {
+    "@darkTheme": {
       ...createThemeCssText(darkTheme),
     },
-    '@bp1': {
-      ...createThemeCssText(darkTheme),
+    "@bp2": {
+      ...createThemeCssText(largeTheme),
     },
   },
   body: {
     backgroundColor: theme.colors.scheme1,
-    overflowY: 'scroll',
+    overflowY: "scroll",
     margin: 0,
-    padding: '1rem !important',
-    fontFamily: ` -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
+    padding: "1rem !important",
+    fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
   a: {
-    color: 'inherit',
-    textDecoration: 'none',
+    color: "inherit",
+    textDecoration: "none",
   },
-  '*': {
-    boxSizing: 'border-box',
-    position: 'relative',
+  "*": {
+    boxSizing: "border-box",
+    position: "relative",
   },
 });
+
+export { globalStyles, styled, getCssText, theme, createTheme, keyframes };

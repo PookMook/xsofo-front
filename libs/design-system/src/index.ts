@@ -1,2 +1,8 @@
-export { keyframes } from '@stitches/react';
-export { styled, getCssText, theme, globalStyles } from './config';
+export {
+  createTheme,
+  theme,
+  getCssText,
+  globalStyles,
+  keyframes,
+  styled,
+} from "./config";
